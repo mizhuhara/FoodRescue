@@ -43,8 +43,14 @@ class User extends Authenticatable
     /**
      * @return HasMany<Order, $this>
      */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
-     * @return <float>|null
+     * Great-circle distance in kilometres to a partner.
+     * Returns null when either side lacks coordinates.
      */
     public function distanceToPartner(Partner $partner): ?float
     {

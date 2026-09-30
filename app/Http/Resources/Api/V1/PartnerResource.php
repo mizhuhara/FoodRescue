@@ -23,6 +23,8 @@ class PartnerResource extends JsonResource
             'address' => $partner->address,
             'latitude' => $partner->latitude,
             'longitude' => $partner->longitude,
+            'status' => $partner->status?->value,
+            'verified_at' => $partner->verified_at?->toISOString(),
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Food;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FoodController extends Controller
 {
@@ -30,17 +31,40 @@ class FoodController extends Controller
         }
 
         $sort = $request->string('sort')->toString();
+        $foods = null;
 
-        // ponytail: distance/rating/price filters need Phase 6 location + Phase 8 reviews. Add then.
         if ($sort === 'cheapest') {
             $query->orderBy('rescue_price');
         } elseif ($sort === 'highest_discount') {
             $query->orderByRaw('(original_price - rescue_price) / original_price DESC');
+        } elseif ($sort === 'nearest') {
+            $user = $request->user();
+            if ($user && $user->latitude && $user->longitude) {
+                $perPage = $request->integer('per_page', 15);
+                $page = $request->integer('page', 1);
+
+                $sorted = $query->get()
+                    ->filter(fn ($f) => $f->partner->latitude && $f->partner->longitude)
+                    ->sortBy(fn ($f) => $user->distanceToPartner($f->partner) ?? PHP_INT_MAX)
+                    ->values();
+
+                $foods = new LengthAwarePaginator(
+                    $sorted->forPage($page, $perPage)->values(),
+                    $sorted->count(),
+                    $perPage,
+                    $page,
+                    ['path' => $request->url()]
+                );
+            } else {
+                $query->orderBy('pickup_end');
+            }
         } else {
             $query->orderBy('pickup_end');
         }
 
-        $foods = $query->paginate($request->integer('per_page', 15));
+        if (! $foods) {
+            $foods = $query->paginate($request->integer('per_page', 15));
+        }
 
         return FoodResource::collection($foods)
             ->additional(['success' => true, 'message' => 'Foods retrieved successfully.'])

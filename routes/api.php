@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AdminController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\FavoriteController;
@@ -62,5 +63,13 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/{order}/pickup', [PartnerOrderController::class, 'verifyPickup']);
 
         Route::get('/impact', [ImpactController::class, 'partnerImpact']);
+    });
+
+    // Admin
+    Route::middleware(['auth:sanctum', 'role:ADMIN'])->prefix('admin')->group(function () {
+        Route::get('/partners/pending', [AdminController::class, 'pendingPartners']);
+        Route::patch('/partners/{partner}/approve', [AdminController::class, 'approvePartner']);
+        Route::patch('/partners/{partner}/reject', [AdminController::class, 'rejectPartner']);
+        Route::patch('/partners/{partner}/suspend', [AdminController::class, 'suspendPartner']);
     });
 });

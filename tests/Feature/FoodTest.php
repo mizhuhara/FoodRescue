@@ -218,4 +218,46 @@ class FoodTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonCount(2, 'data');
     }
+
+    public function test_foods_can_be_sorted_by_distance_when_user_has_location(): void
+    {
+        $user = User::factory()->customer()->create([
+            'latitude' => -5.147665,
+            'longitude' => 119.432724,
+        ]);
+
+        $far = Partner::factory()->approved()->create([
+            'latitude' => -5.500000,
+            'longitude' => 119.500000,
+        ]);
+        $near = Partner::factory()->approved()->create([
+            'latitude' => -5.150000,
+            'longitude' => 119.435000,
+        ]);
+
+        $farFood = Food::factory()->create(['partner_id' => $far->id, 'pickup_end' => '23:59']);
+        $nearFood = Food::factory()->create(['partner_id' => $near->id, 'pickup_end' => '23:59']);
+
+        $response = $this->actingAs($user)->getJson('/api/v1/foods?sort=nearest');
+
+        $response->assertOk();
+        $this->assertEquals(
+            [$nearFood->id, $farFood->id],
+            array_column($response->json('data'), 'id')
+        );
+    }
+
+    public function test_foods_without_user_location_fall_back_to_pickup_end_sort(): void
+    {
+        $user = User::factory()->customer()->create([
+            'latitude' => null,
+            'longitude' => null,
+        ]);
+
+        Food::factory()->count(2)->create(['pickup_end' => '23:59']);
+
+        $this->actingAs($user)
+            ->getJson('/api/v1/foods?sort=nearest')
+            ->assertOk();
+    }
 }

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\FavoriteController;
 use App\Http\Controllers\Api\V1\FoodController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PartnerFoodController;
 use App\Http\Controllers\Api\V1\PartnerOrderController;
 use App\Http\Controllers\Api\V1\PartnerProfileController;
+use App\Http\Controllers\Api\V1\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -29,6 +31,15 @@ Route::prefix('v1')->group(function () {
         Route::get('/orders/{order}', [OrderController::class, 'show']);
         Route::post('/orders', [OrderController::class, 'store']);
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+
+        // Reviews
+        Route::get('/foods/{food}/reviews', [ReviewController::class, 'index']);
+        Route::post('/orders/{order}/review', [ReviewController::class, 'store']);
+
+        // Favorites
+        Route::get('/favorites', [FavoriteController::class, 'index']);
+        Route::post('/foods/{food}/favorite', [FavoriteController::class, 'store']);
+        Route::delete('/foods/{food}/favorite', [FavoriteController::class, 'destroy']);
     });
 
     // Partner profile & dashboard

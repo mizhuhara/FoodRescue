@@ -4,7 +4,9 @@ namespace Database\Factories;
 
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
+use App\Models\Food;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Partner;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,6 +33,19 @@ class OrderFactory extends Factory
             'pickup_code' => null,
             'expires_at' => now()->addHours(2),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Order $order) {
+            if ($order->items()->count() === 0) {
+                $food = Food::factory()->create(['partner_id' => $order->partner_id]);
+                OrderItem::factory()->create([
+                    'order_id' => $order->id,
+                    'food_id' => $food->id,
+                ]);
+            }
+        });
     }
 
     public function pending(): static

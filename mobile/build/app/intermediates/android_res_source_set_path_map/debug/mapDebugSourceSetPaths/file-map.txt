@@ -1,0 +1,7 @@
+id.foodrescue.foodrescue.app-debug-0 C:\laragon\www\FoodRescue\mobile\android\app\src\debug\res
+id.foodrescue.foodrescue.app-main-1 C:\laragon\www\FoodRescue\mobile\android\app\src\main\res
+id.foodrescue.foodrescue.app-pngs-2 C:\laragon\www\FoodRescue\mobile\build\app\generated\res\pngs\debug
+id.foodrescue.foodrescue.app-updated_navigation_xml-3 C:\laragon\www\FoodRescue\mobile\build\app\generated\updated_navigation_xml\debug
+id.foodrescue.foodrescue.app-packageDebugResources-4 C:\laragon\www\FoodRescue\mobile\build\app\intermediates\incremental\debug\packageDebugResources\merged.dir
+id.foodrescue.foodrescue.app-packageDebugResources-5 C:\laragon\www\FoodRescue\mobile\build\app\intermediates\incremental\debug\packageDebugResources\stripped.dir
+id.foodrescue.foodrescue.app-debug-6 C:\laragon\www\FoodRescue\mobile\build\app\intermediates\merged_res\debug\mergeDebugResources

@@ -1,0 +1,21 @@
+﻿Analyzing mobile...                                             
+
+warning - Unused import: 'package:flutter/material.dart'. Try removing the import directive - lib\core\config\router.dart:1:8 - unused_import
+   info - Use an initializing formal to assign a parameter to a field. Try using an initialing formal ('this._apiClient') to initialize the field - lib\features\auth\data\auth_repository.dart:12:52 - prefer_initializing_formals
+   info - Parameter 'key' could be a super parameter. Trying converting 'key' to a super parameter - lib\features\auth\presentation\screens\login_screen.dart:9:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter. Trying converting 'key' to a super parameter - lib\features\auth\presentation\screens\register_screen.dart:9:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter. Trying converting 'key' to a super parameter - lib\features\auth\presentation\widgets\auth_text_field.dart:13:9 - use_super_parameters
+   info - Use an initializing formal to assign a parameter to a field. Try using an initialing formal ('this._apiClient') to initialize the field - lib\features\home\data\food_repository.dart:9:52 - prefer_initializing_formals
+   info - Parameter 'key' could be a super parameter. Trying converting 'key' to a super parameter - lib\features\home\presentation\screens\home_screen.dart:12:9 - use_super_parameters
+  error - Target of URI doesn't exist: '../../../shared/models/food_model.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist - lib\features\home\presentation\widgets\food_card.dart:3:8 - uri_does_not_exist
+  error - Undefined class 'Food'. Try changing the name to the name of an existing class, or creating a class with the name 'Food' - lib\features\home\presentation\widgets\food_card.dart:17:9 - undefined_class
+  error - Const variables must be initialized with a constant value. Try changing the initializer to be a constant expression - test\auth_test.dart:21:18 - const_initialized_with_non_constant_value
+  error - The constructor being called isn't a const constructor. Try removing 'const' from the constructor invocation - test\auth_test.dart:21:18 - const_with_non_const
+
+flutter : 11 issues found. (ran in 0.9s)
+At line:1 char:38
++ cd C:\laragon\www\FoodRescue\mobile; flutter analyze 2>&1 | Out-File  ...
++                                      ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (11 issues found. (ran in 0.9s):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

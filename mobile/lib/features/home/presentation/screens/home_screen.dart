@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../auth/domain/auth_notifier.dart';
-import '../../home/data/food_repository.dart';
+import '../../../auth/domain/auth_notifier.dart';
+import '../../data/food_repository.dart';
 import '../widgets/food_card.dart';
 
 class HomeScreen extends ConsumerWidget {

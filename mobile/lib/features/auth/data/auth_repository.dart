@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/network/api_client.dart';
-import '../../core/storage/storage_service.dart';
-import '../../shared/models/auth_model.dart';
+import '../../../core/network/api_client.dart';
+import '../../../core/storage/storage_service.dart';
+import '../../../shared/models/auth_model.dart';
 
 class AuthRepository {
   final ApiClient _apiClient;

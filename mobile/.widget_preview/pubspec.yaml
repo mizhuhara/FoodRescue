@@ -11,7 +11,7 @@ dependencies:
   flutter_lints: ^6.0.0
   foodrescue:
     path: C:\laragon\www\FoodRescue\mobile
-  google_fonts: ^9.0.0
+  google_fonts: ^8.2.1
   json_rpc_2: ^4.1.0
   path: ^1.9.1
   stack_trace: ^1.12.2

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\FoodController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PartnerFoodController;
 use App\Http\Controllers\Api\V1\PartnerOrderController;
+use App\Http\Controllers\Api\V1\PartnerProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -30,8 +31,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
     });
 
-    // Partner food management
+    // Partner profile & dashboard
     Route::middleware(['auth:sanctum', 'role:PARTNER'])->prefix('partner')->group(function () {
+        Route::get('/profile', [PartnerProfileController::class, 'show']);
+        Route::post('/profile', [PartnerProfileController::class, 'store']);
+        Route::get('/dashboard', [PartnerProfileController::class, 'dashboard']);
+
         Route::get('/foods', [PartnerFoodController::class, 'index']);
         Route::post('/foods', [PartnerFoodController::class, 'store']);
         Route::put('/foods/{food}', [PartnerFoodController::class, 'update']);

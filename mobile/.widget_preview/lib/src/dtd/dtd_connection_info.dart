@@ -1,8 +1,8 @@
 // ignore_for_file: implementation_imports
 
-const String kWidgetPreviewDtdUri = 'ws://127.0.0.1:60500/cNLyF5n8Z0A=';
+const String kWidgetPreviewDtdUri = 'ws://127.0.0.1:53443/l-igm4q7StE=';
 const String kWidgetPreviewService =
-    'widget-preview-d38246a6-8300-4867-b0e8-656a76726bab';
+    'widget-preview-1cb843d8-5ab6-4236-a523-46aa8ae6ba5c';
 const String kWidgetPreviewScaffoldStream =
-    'WidgetPreviewScaffold-d38246a6-8300-4867-b0e8-656a76726bab';
+    'WidgetPreviewScaffold-1cb843d8-5ab6-4236-a523-46aa8ae6ba5c';
 const String kProjectRootPath = r'C:\laragon\www\FoodRescue\mobile';

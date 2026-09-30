@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/network/api_client.dart';
-import '../../shared/models/food_model.dart';
+import '../../../core/network/api_client.dart';
+import '../../../shared/models/food_model.dart';
 
 class FoodRepository {
   final ApiClient _apiClient;

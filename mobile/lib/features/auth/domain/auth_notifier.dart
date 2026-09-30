@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/auth_repository.dart';
-import '../../shared/models/auth_model.dart';
+import '../../../shared/models/auth_model.dart';
 
 class AuthState {
   final bool isLoading;

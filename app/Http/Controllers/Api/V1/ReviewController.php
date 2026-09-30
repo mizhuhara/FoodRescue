@@ -53,7 +53,7 @@ class ReviewController extends Controller
             $data['image'] = $request->file('image')->store('reviews', 'public');
         }
 
-        $review = $order->review()->create($data);
+        $review = $order->review()->create($data + ['user_id' => $user->id]);
 
         return ApiResponse::success(
             new ReviewResource($review->load(['user', 'food'])),

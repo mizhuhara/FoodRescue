@@ -43,9 +43,27 @@ class User extends Authenticatable
     /**
      * @return HasMany<Order, $this>
      */
-    public function orders(): HasMany
+    /**
+     * @return <float>|null
+     */
+    public function distanceToPartner(Partner $partner): ?float
     {
-        return $this->hasMany(Order::class);
+        if ($this->latitude === null || $this->longitude === null) {
+            return null;
+        }
+        if ($partner->latitude === null || $partner->longitude === null) {
+            return null;
+        }
+
+        $earthRadiusKm = 6371.0;
+        $latDelta = deg2rad($partner->latitude - $this->latitude);
+        $lngDelta = deg2rad($partner->longitude - $this->longitude);
+
+        $a = sin($latDelta / 2) ** 2
+            + cos(deg2rad($this->latitude)) * cos(deg2rad($partner->latitude))
+                * sin($lngDelta / 2) ** 2;
+
+        return round($earthRadiusKm * 2 * atan2(sqrt($a), sqrt(1 - $a)), 2);
     }
 
     /**

@@ -92,7 +92,9 @@ class FavoriteTest extends TestCase
         $first = Food::factory()->create();
         $second = Food::factory()->create();
 
-        Favorite::create(['user_id' => $user->id, 'food_id' => $first->id]);
+        Favorite::create(['user_id' => $user->id, 'food_id' => $first->id])
+            ->forceFill(['created_at' => now()->subDay()])
+            ->save();
         Favorite::create(['user_id' => $user->id, 'food_id' => $second->id]);
 
         $response = $this->actingAs($user)->getJson('/api/v1/favorites');

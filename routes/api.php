@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\FavoriteController;
 use App\Http\Controllers\Api\V1\FoodController;
+use App\Http\Controllers\Api\V1\ImpactController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PartnerFoodController;
 use App\Http\Controllers\Api\V1\PartnerOrderController;
@@ -19,6 +20,7 @@ Route::prefix('v1')->group(function () {
     // Public discovery
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/foods', [FoodController::class, 'index']);
+    Route::get('/foods/{food}/reviews', [ReviewController::class, 'index']);
     Route::get('/foods/{food}', [FoodController::class, 'show']);
 
     // Auth - Protected
@@ -33,13 +35,15 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
 
         // Reviews
-        Route::get('/foods/{food}/reviews', [ReviewController::class, 'index']);
         Route::post('/orders/{order}/review', [ReviewController::class, 'store']);
 
         // Favorites
         Route::get('/favorites', [FavoriteController::class, 'index']);
         Route::post('/foods/{food}/favorite', [FavoriteController::class, 'store']);
         Route::delete('/foods/{food}/favorite', [FavoriteController::class, 'destroy']);
+
+        // Impact
+        Route::get('/impact', [ImpactController::class, 'customerImpact']);
     });
 
     // Partner profile & dashboard
@@ -56,5 +60,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/orders', [PartnerOrderController::class, 'index']);
         Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateStatus']);
         Route::post('/orders/{order}/pickup', [PartnerOrderController::class, 'verifyPickup']);
+
+        Route::get('/impact', [ImpactController::class, 'partnerImpact']);
     });
 });

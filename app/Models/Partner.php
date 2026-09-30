@@ -75,4 +75,25 @@ class Partner extends Model
     {
         return $query->where('status', PartnerStatus::Approved);
     }
+
+    /**
+     * Great-circle distance in kilometres from this partner to a point.
+     * Returns null when either side lacks coordinates.
+     */
+    public function distanceTo(float $latitude, float $longitude): ?float
+    {
+        if ($this->latitude === null || $this->longitude === null) {
+            return null;
+        }
+
+        $earthRadiusKm = 6371.0;
+
+        $latDelta = deg2rad($latitude - $this->latitude);
+        $lngDelta = deg2rad($longitude - $this->longitude);
+
+        $a = sin($latDelta / 2) ** 2
+            + cos(deg2rad($this->latitude)) * cos(deg2rad($latitude)) * sin($lngDelta / 2) ** 2;
+
+        return round($earthRadiusKm * 2 * atan2(sqrt($a), sqrt(1 - $a)), 2);
+    }
 }

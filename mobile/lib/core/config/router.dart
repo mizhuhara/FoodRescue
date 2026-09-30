@@ -6,6 +6,8 @@ import '../../features/auth/domain/auth_notifier.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/home/presentation/widgets/main_shell.dart';
+import '../../features/orders/presentation/screens/orders_screen.dart';
 
 final routerProvider = Provider((ref) {
   final authState = ref.watch(authNotifierProvider);
@@ -38,7 +40,33 @@ final routerProvider = Provider((ref) {
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => MainShell(
+          child: HomeScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/orders',
+        builder: (context, state) => MainShell(
+          child: OrdersScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/impact',
+        builder: (context, state) => MainShell(
+          child: Scaffold(
+            appBar: AppBar(title: const Text('Impact')),
+            body: const Center(child: Text('Impact coming soon')),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => MainShell(
+          child: Scaffold(
+            appBar: AppBar(title: const Text('Profile')),
+            body: const Center(child: Text('Profile coming soon')),
+          ),
+        ),
       ),
     ],
   );

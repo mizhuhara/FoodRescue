@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\FoodController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PartnerFoodController;
+use App\Http\Controllers\Api\V1\PartnerOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -35,5 +36,9 @@ Route::prefix('v1')->group(function () {
         Route::post('/foods', [PartnerFoodController::class, 'store']);
         Route::put('/foods/{food}', [PartnerFoodController::class, 'update']);
         Route::delete('/foods/{food}', [PartnerFoodController::class, 'destroy']);
+
+        Route::get('/orders', [PartnerOrderController::class, 'index']);
+        Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateStatus']);
+        Route::post('/orders/{order}/pickup', [PartnerOrderController::class, 'verifyPickup']);
     });
 });

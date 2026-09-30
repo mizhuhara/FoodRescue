@@ -211,7 +211,7 @@ class OrderTest extends TestCase
         $this->actingAs($customer, 'sanctum')
             ->postJson("/api/v1/orders/{$order->id}/cancel")
             ->assertStatus(422)
-            ->assertJsonPath('message', 'Only pending orders can be cancelled.');
+            ->assertJsonPath('message', 'Cannot change order status from CONFIRMED to CANCELLED.');
     }
 
     public function test_order_uses_server_side_pricing(): void

@@ -27,6 +27,11 @@ class OrderResource extends JsonResource
             'pickup_completed_at' => $order->pickup_completed_at?->toISOString(),
             'expires_at' => $order->expires_at?->toISOString(),
             'partner' => PartnerResource::make($order->partner),
+            'customer' => $order->user ? [
+                'id' => $order->user->id,
+                'name' => $order->user->name,
+                'phone' => $order->user->phone,
+            ] : null,
             'items' => OrderItemResource::collection($order->items),
             'created_at' => $order->created_at?->toISOString(),
             'updated_at' => $order->updated_at?->toISOString(),

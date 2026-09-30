@@ -81,8 +81,12 @@ class PartnerFoodController extends Controller
         );
     }
 
-    public function destroy(Food $food): JsonResponse
+    public function destroy(Request $request, Food $food): JsonResponse
     {
+        if ($food->partner_id !== $this->partnerFor($request)->id) {
+            return ApiResponse::error('You can only delete your own food.', 403);
+        }
+
         if ($food->image) {
             Storage::disk('public')->delete($food->image);
         }

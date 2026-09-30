@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Enums\FoodStatus;
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreOrderRequest;
@@ -63,28 +62,15 @@ class OrderController extends Controller
     {
         $this->authorize('update', $order);
 
-        if ($order->status !== OrderStatus::Pending) {
-            return ApiResponse::error('Only pending orders can be cancelled.', 422);
+        try {
+            $order = $this->orderService->updateStatus($order, OrderStatus::Cancelled);
+        } catch (\InvalidArgumentException $e) {
+            return ApiResponse::error($e->getMessage(), 422);
         }
-
-        $order->status = OrderStatus::Cancelled;
-        $order->save();
-
-        $this->restockItems($order);
 
         return ApiResponse::success(
             new OrderResource($order->fresh()),
             'Order cancelled successfully.'
         );
-    }
-
-    private function restockItems(Order $order): void
-    {
-        foreach ($order->items as $item) {
-            $food = $item->food;
-            $food->stock += $item->quantity;
-            $food->status = FoodStatus::Available;
-            $food->save();
-        }
     }
 }

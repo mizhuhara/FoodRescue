@@ -62,7 +62,10 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   itemCount: foodList.length,
                   itemBuilder: (context, index) {
-                    return FoodCard(food: foodList[index]);
+                    return FoodCard(
+                      food: foodList[index],
+                      onTap: () => context.push('/food/${foodList[index].id}'),
+                    );
                   },
                 );
               },

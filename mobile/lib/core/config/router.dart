@@ -7,7 +7,7 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/home/presentation/widgets/main_shell.dart';
-import '../../features/orders/presentation/screens/orders_screen.dart';
+import '../../features/home/presentation/screens/food_detail_screen.dart';
 
 final routerProvider = Provider((ref) {
   final authState = ref.watch(authNotifierProvider);
